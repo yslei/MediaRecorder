@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yslei.soundrecorder.activity.RecordActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="recorder"
+            type="com.yslei.soundrecorder.viewmodle.RecordViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <Chronometer
+            android:id="@+id/record_audio_chronometer_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:textSize="64sp"
+            android:visibility="@{recorder.isOBPlaying ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <TextView
+            android:id="@+id/play_audio_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:textSize="64sp"
+            android:visibility="@{recorder.isOBPlaying ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            tools:text="0:0" />
+
+        <TextView
+            android:id="@+id/record_audio_length_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-light"
+            android:text="@{String.valueOf(recorder.playLength)}"
+            android:textSize="16sp"
+            android:visibility="@{recorder.isOBPlaying ? View.VISIBLE : View.GONE}"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/play_audio_time"
+            tools:text="00:00" />
+
+        <com.carlos.voiceline.mylibrary.VoiceLineView
+            android:id="@+id/voicLine"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:fineness="three"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.65"
+            app:maxVolume="200"
+            app:middleLine="@android:color/holo_red_light"
+            app:middleLineHeight="1dp"
+            app:rectSpace="2dp"
+            app:rectWidth="5dp"
+            app:sensibility="four"
+            app:viewMode="line"
+            app:voiceLine="@android:color/holo_red_light" />
+
+        <TextView
+            android:id="@+id/fileName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:text="@{recorder.fileName}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/filePath"
+            tools:text="yslei.mp4" />
+
+        <TextView
+            android:id="@+id/filePath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:text="@{recorder.filePath}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/line2"
+            tools:text="/root/slei.mp4" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline1">
+
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/record_audio_fab_record"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:src="@{recorder.isOBRecording ? @drawable/ic_media_stop : @drawable/ic_mic_white_36dp}"
+                app:fab_colorNormal="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/record_audio_fab_play"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/record_audio_fab_play"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:src="@{recorder.isOBPlaying ? @drawable/ic_media_pause : @drawable/ic_media_play}"
+                android:visibility="@{recorder.isOBShowPlayButton ? View.VISIBLE : View.GONE}"
+                app:fab_colorNormal="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/record_audio_fab_record"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

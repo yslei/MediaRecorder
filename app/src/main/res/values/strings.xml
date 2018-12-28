@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Toolbar -->
+    <string name="app_name">逗逼录音机</string>
+
+    <string name="permission_for_media_record_delete">获取媒体录音播放文件删除权限</string>
+
+    <string name="str_check_history">查看历史</string>
+    <string name="str_display_mode">预览模式</string>
+    <string name="str_edit_mode">编辑模式</string>
+    <string name="str_select_all">全选</string>
+    <string name="str_clear_all">清空</string>
+    <string name="str_delete">删除</string>
+
+    <string name="str_loading">加载中...</string>
+    <string name="str_load_finish">加载完成</string>
+    <string name="str_load_exception">加载出错，请重试</string>
+
+    <string name="str_record_history_empty">没有录音哟\n骚年赶紧去秀秀嗓子！</string>
+</resources>
